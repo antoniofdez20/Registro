@@ -26,6 +26,13 @@ public class RegistroUsuario
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
         StringBuilder securityCode = new StringBuilder();
+
+        for (int i = 0; i < 8; i++) 
+        {
+            int index = random.nextInt(characters.length());
+            char character = characters.charAt(index);
+            securityCode.append(character);
+        }
         
         System.out.println("Introduce tu nombre de usuario: ");
         setNombre(sc.nextLine());
