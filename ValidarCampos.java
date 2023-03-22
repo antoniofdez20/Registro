@@ -1,10 +1,6 @@
 public class ValidarCampos 
 {
     private String[] nombres = {"Ana_r235", "Luisa-987", "Jorge_512", "Maria-104", "Andres_723", "Lucia-812", "Pedro_305", "Marta-619", "David_205", "Laura-832"};
-    /* expresion regular para validar los nombres: ^[A-Z][a-z]+[-_][0-9]{3}$ */
-    /* expresion regular para validar el email ^[a-zA-Z0-9._%+-]+@(paucasesnovescifp|yahoo|gmail|hotmail)\.(com|es|cat)$ */
-    /* expresion regular para validar la contraseña ^[A-Z][a-zA-Z0-9]*[@#_\-][a-zA-Z0-9]*[0-9]{2}$ */
-    /* ^(?=.{8,}$)([A-Z][a-zA-Z0-9]*[@#_\-][a-zA-Z0-9]*[0-9]{2})$ */
 
     public ValidarCampos(String nombre, String email, String password, String codigo, StringBuilder securityCode)
     {
