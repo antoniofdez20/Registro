@@ -6,20 +6,7 @@ public class ValidarCampos
     {
         this.nombres = nombres;
 
-        if ((nombre.matches("^[A-Z][a-z]+[-_][0-9]{3}$")))
-        {
-            for (String name : nombres)
-            {
-                if (nombre.equals(name))
-                {
-                    System.out.println("Este nombre ya existe");
-                    System.exit(-1);
-                }
-            }
-            System.out.println("Nombre válido.");
-        }
-        else
-            System.out.println("Nombre de usuario incorrecto");    
+        vallidarNombre(nombre);    
 
         if (email.matches("^[a-zA-Z0-9._%+-]+@(paucasesnovescifp|yahoo|gmail|hotmail)\\.(com|es|cat)$"))
             System.out.println("Correo válido");
@@ -53,5 +40,22 @@ public class ValidarCampos
         System.out.println(password);
         System.out.println(codigo);
         System.out.println("El registro se ha realizado con éxito.");
+    }
+
+    private void vallidarNombre(String nombre) {
+        if ((nombre.matches("^[A-Z][a-z]+[-_][0-9]{3}$")))
+        {
+            for (String name : nombres)
+            {
+                if (nombre.equals(name))
+                {
+                    System.out.println("Este nombre ya existe");
+                    System.exit(-1);
+                }
+            }
+            System.out.println("Nombre válido.");
+        }
+        else
+            System.out.println("Nombre de usuario incorrecto");
     }
 }
