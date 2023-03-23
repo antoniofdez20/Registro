@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class RegistroUsuario 
 {
-    private String nombre;
+    private String nombreUsuario;
     private String email;
     private String password;
     private String codigo;
@@ -11,7 +11,7 @@ public class RegistroUsuario
 
     public RegistroUsuario()
     {
-        this.nombre = nombre;
+        this.nombreUsuario = nombreUsuario;
         this.email = email;
         this.password = password;
         this.codigo = codigo;
@@ -19,7 +19,7 @@ public class RegistroUsuario
 
         StringBuilder securityCode = scanner();
 
-        new ValidarCampos(nombre, email, password, codigo, securityCode);
+        new ValidarCampos(nombreUsuario, email, password, codigo, securityCode);
     }
 
     private StringBuilder scanner() {
@@ -33,9 +33,9 @@ public class RegistroUsuario
             char character = characters.charAt(index);
             securityCode.append(character);
         }
-        
+
         System.out.println("Introduce tu nombre de usuario: ");
-        setNombre(sc.nextLine());
+        setNombreUsuario(sc.nextLine());
         System.out.println("Introduce correo de registro: ");
         setEmail(sc.nextLine());
         System.out.println("Introduce la contraseña: ");
@@ -46,8 +46,8 @@ public class RegistroUsuario
         return securityCode;
     }
 
-    public void setNombre(String nombre){
-        this.nombre = nombre;
+    public void setNombreUsuario(String nombreUsuario){
+        this.nombreUsuario = nombreUsuario;
     }
 
     public void setEmail(String email){
@@ -62,8 +62,8 @@ public class RegistroUsuario
         this.codigo = codigo;
     }
 
-    public String getNombre(){
-        return nombre;
+    public String getNombreUsuario(){
+        return nombreUsuario;
     }
 
     public String getEmail(){
