@@ -7,7 +7,9 @@ public class RegistroUsuario
     private String email;
     private String password;
     private String codigo;
+    private StringBuilder securityCode;
     private String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()_+";
+    private boolean datosCorrectos = false;
 
     public RegistroUsuario()
     {
@@ -16,16 +18,61 @@ public class RegistroUsuario
         this.password = password;
         this.codigo = codigo;
         this.characters = characters;
-
-        StringBuilder securityCode = scanner();
-
-        new ValidarCampos(nombreUsuario, email, password, codigo, securityCode);
+        this.datosCorrectos = datosCorrectos;
     }
 
-    private StringBuilder scanner() {
-        Scanner sc = new Scanner(System.in);
+    public void init(ValidaUsuario vu, Scanner sc)
+    {   
+        while (!datosCorrectos)
+        {
+            try {
+                vu.compruebaNombre(nombreUsuario, vu.getUsuarios());
+                vu.compruebaEmail(email);
+                vu.compruebaPassword(password);
+                vu.compruebaCodigo(codigo, securityCode);
+
+                sc.close();
+                datosCorrectos = true;
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println("Por favor, rellene de nuevo los campos");
+                sc.nextLine();
+                pedirNombreUsuario(sc);
+                pedirEmail(sc);
+                pedirPassword(sc);
+                scanner(sc);
+
+                datosCorrectos = false;
+            }
+        }
+        
+        if (datosCorrectos)
+            vu.mostrarRegistro(nombreUsuario, email, password, codigo);
+    }
+
+    public void pedirNombreUsuario(Scanner sc)
+    {
+        System.out.println("Introduce tu nombre de usuario: ");
+        setNombreUsuario(sc.nextLine());
+    }
+
+    public void pedirEmail(Scanner sc)
+    {
+        System.out.println("Introduce correo de registro: ");
+        setEmail(sc.nextLine());
+    }
+
+    public void pedirPassword(Scanner sc)
+    {
+        System.out.println("Introduce la contraseña: ");
+        setPassword(sc.nextLine());
+    }
+
+    private StringBuilder scanner(Scanner sc) 
+    {
         Random random = new Random();
-        StringBuilder securityCode = new StringBuilder();
+        securityCode = new StringBuilder();
 
         for (int i = 0; i < 8; i++) 
         {
@@ -34,55 +81,60 @@ public class RegistroUsuario
             securityCode.append(character);
         }
 
-        System.out.println("Introduce tu nombre de usuario: ");
-        setNombreUsuario(sc.nextLine());
-        System.out.println("Introduce correo de registro: ");
-        setEmail(sc.nextLine());
-        System.out.println("Introduce la contraseña: ");
-        setPassword(sc.nextLine());
         System.out.println("Introduce el siguiente código de seguridad: " + securityCode.toString());
         setCodigo(sc.nextLine());
-        sc.close();
         return securityCode;
     }
 
-    public void setNombreUsuario(String nombreUsuario){
+    public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
     }
 
-    public void setEmail(String email){
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setPassword(String password){
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setCodigo(String codigo){
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
-    public String getNombreUsuario(){
+    public void setDatosCorrectos(boolean datosCorrectos) {
+        this.datosCorrectos = datosCorrectos;
+    }
+
+    public String getNombreUsuario() {
         return nombreUsuario;
     }
 
-    public String getEmail(){
+    public String getEmail() {
        return email;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 
-    public String getCodigo(){
+    public String getCodigo() {
         return codigo;
     }
 
+    public boolean getDatosCorrectos() {
+        return datosCorrectos;
+    }
 
     public static void main(String[] args) 
     {
-        new RegistroUsuario();    
+        RegistroUsuario rg = new RegistroUsuario();
+        Scanner sc = new Scanner(System.in);
+        rg.pedirNombreUsuario(sc);
+        rg.pedirEmail(sc);
+        rg.pedirPassword(sc);
+        rg.scanner(sc);
+        ValidaUsuario vu = new ValidaUsuario(rg.nombreUsuario, rg.email, rg.password, rg.codigo, rg.securityCode);
+        rg.init(vu, sc);    
     }
-
-
 }
