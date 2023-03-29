@@ -7,13 +7,13 @@ public class ValidaUsuario
         this.usuarios = usuarios;    
     }
 
-    public void compruebaNombre(String nombre, String[] usuarios) throws Exception
+    public void compruebaNombre(String nombreUsuario, String[] usuarios) throws Exception
     {
-        if ((nombre.matches("^[A-Z][a-z]+[-_][0-9]{3}$")))
+        if ((nombreUsuario.matches("^[A-Z][a-z]+[-_][0-9]{3}$")))
         {
             for (String name : usuarios)
             {
-                if (nombre.equals(name))
+                if (nombreUsuario.equals(name))
                     throw new Exception("Nombre de usuario ya existe");
             }
             System.out.println();
@@ -48,12 +48,12 @@ public class ValidaUsuario
             throw new Exception("El código introducido no coincide con el de seguridad");
     }
 
-    public void mostrarRegistro(String nombre, String email, String password, String codigo)
+    public void mostrarRegistro(String nombreUsuario, String email, String password, String codigo)
     {
         System.out.println();
         System.out.println("Estos son los datos introducidos: ");
         System.out.println("*".repeat(20));
-        System.out.println(nombre);
+        System.out.println(nombreUsuario);
         System.out.println(email);
         System.out.println(password);
         System.out.println(codigo);
